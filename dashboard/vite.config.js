@@ -16,8 +16,8 @@ export default defineConfig({
   plugins: [react(), seo()],
   server: {
     allowedHosts: [
-      'openshorts.app',
-      'www.openshorts.app'
+      'os.visualriot.me',
+      'www.os.visualriot.me'
     ],
     proxy: {
       '/api': { target: backend, changeOrigin: true },
