@@ -18,7 +18,6 @@ export default defineConfig({
     allowedHosts: [
       'openshorts.app',
       'www.openshorts.app',
-      'clips.systeme-cloud.com',
     ],
     proxy: {
       '/api': { target: backend, changeOrigin: true },
