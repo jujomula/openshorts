@@ -15,7 +15,7 @@ services:
       - openshorts_output:/app/output
       - openshorts_uploads:/app/uploads
       - openshorts_cache:/app/.cache/huggingface
-    restart: unless-stopped
+    restart: always
     cpus: 4.0
     mem_limit: 6g
     init: true
@@ -27,7 +27,7 @@ services:
     container_name: openshorts-frontend
     ports:
       - "5175:5173"
-    restart: unless-stopped
+    restart: always
     depends_on:
       - backend
     cpus: 0.5
@@ -47,7 +47,7 @@ services:
       REMOTION_BUNDLE_PATH: /app/remotion
       OUTPUT_DIR: /output
       PORT: "3100"
-    restart: unless-stopped
+    restart: always
     depends_on:
       - backend
     cpus: 1.5
