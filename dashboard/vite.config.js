@@ -17,7 +17,8 @@ export default defineConfig({
   server: {
     allowedHosts: [
       'os.visualriot.me',
-      'www.os.visualriot.me'
+      'www.os.visualriot.me',
+      'clips.systeme-cloud.com',
     ],
     proxy: {
       '/api': { target: backend, changeOrigin: true },
