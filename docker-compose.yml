@@ -1,14 +1,23 @@
 services:
   backend:
-    build: .
+    build:
+      context: .
+      args:
+        GPU: "0"
     container_name: openshorts-backend
     ports:
       - "8000:8000"
+    environment:
+      MAX_CONCURRENT_JOBS: "1"
+      PYTHONUNBUFFERED: "1"
     volumes:
-      - .:/app
-      - /app/__pycache__
-      - ./output:/app/output
-    restart: unless-stopped
+      - openshorts_output:/app/output
+      - openshorts_uploads:/app/uploads
+      - openshorts_cache:/app/.cache/huggingface
+    restart: always
+    cpus: 4.0
+    mem_limit: 6g
+    init: true
 
   frontend:
     build:
@@ -17,12 +26,12 @@ services:
     container_name: openshorts-frontend
     ports:
       - "5175:5173"
-    volumes:
-      - ./dashboard:/app
-      - /app/node_modules
-    restart: unless-stopped
+    restart: always
     depends_on:
       - backend
+    cpus: 0.5
+    mem_limit: 768m
+    init: true
 
   renderer:
     build:
@@ -32,11 +41,24 @@ services:
     ports:
       - "3100:3100"
     volumes:
-      - ./output:/output
+      - openshorts_output:/output
     environment:
-      - REMOTION_BUNDLE_PATH=/app/remotion
-      - OUTPUT_DIR=/output
-      - PORT=3100
-    restart: unless-stopped
+      REMOTION_BUNDLE_PATH: /app/remotion
+      OUTPUT_DIR: /output
+      PORT: "3100"
+    restart: always
     depends_on:
       - backend
+    cpus: 1.5
+    mem_limit: 2g
+    init: true
+
+volumes:
+  openshorts_output:
+    name: openshorts_output
+  openshorts_uploads:
+    name: openshorts_uploads
+  openshorts_cache:
+    name: openshorts_cache
+
+
