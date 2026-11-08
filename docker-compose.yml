@@ -1,3 +1,4 @@
+
 services:
   backend:
     build:
@@ -60,5 +61,3 @@ volumes:
     name: openshorts_uploads
   openshorts_cache:
     name: openshorts_cache
-
-
