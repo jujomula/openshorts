@@ -7,7 +7,7 @@ services:
         GPU: "0"
     container_name: openshorts-backend
     ports:
-      - "192.168.18.76:8000:8000"
+      - "8000:8000"
     environment:
       MAX_CONCURRENT_JOBS: "1"
       PYTHONUNBUFFERED: "1"
@@ -26,7 +26,7 @@ services:
       target: dev
     container_name: openshorts-frontend
     ports:
-      - "192.168.18.76:5175:5173"
+      - "5175:5173"
     restart: always
     depends_on:
       - backend
@@ -40,7 +40,7 @@ services:
       dockerfile: render-service/Dockerfile
     container_name: openshorts-renderer
     ports:
-      - "192.168.18.76:3100:3100"
+      - "3100:3100"
     volumes:
       - openshorts_output:/output
     environment:
